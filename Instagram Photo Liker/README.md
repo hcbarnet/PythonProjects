@@ -3,8 +3,11 @@ Hello! Welcome to my Instagram Photo Liker!
 How to Use:
 
 **In order to get this script to work, you need to have a Facebook Account, Python compiler, Firefox, and Selenium.**
-**Switch ENTER USERNAME HERE to your facebook Username/Email.** 
-**Switch ENTER PASSWORD HERE to your facebook password. **
+
+**Switch ENTER USERNAME HERE to your facebook Username/Email.**
+ 
+**Switch ENTER PASSWORD HERE to your facebook password.**
+
 **Run the program**
 
 The program then will:
