@@ -4,9 +4,9 @@ How to Use:
 
 **In order to get this script to work, you need to have a Facebook Account, Python compiler, Firefox, and Selenium.**
 
-**Switch ENTER USERNAME HERE to your facebook Username/Email.**
+**Enter your Facebook email when prompted.**
  
-**Switch ENTER PASSWORD HERE to your facebook password.**
+**Enter your facebook password when prompted**
 
 **Run the program**
 
