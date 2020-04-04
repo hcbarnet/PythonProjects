@@ -1,7 +1,7 @@
-#This was created while watching freeCodeCamp video. 
 import pygame
 import random
- 
+
+# Code started by freeCodeCamp
 # creating the data structure for pieces
 # setting up global vars
 # functions
@@ -10,173 +10,384 @@ import random
 # - draw_window
 # - rotating shape in main
 # - setting up the main
- 
+
 """
 10 x 20 square grid
 shapes: S, Z, I, O, J, L, T
 represented in order by 0 - 6
 """
- 
+
 pygame.font.init()
- 
+
 # GLOBALS VARS
 s_width = 800
 s_height = 700
-play_width = 300  # meaning 300 // 10 = 30 width per block
-play_height = 600  # meaning 600 // 20 = 20 height per block
+play_width = 300  # these are the red boxes. meaning 300 // 10 = 30 width per block
+play_height = 600  # red box. meaning 600 // 20 = 20 height per block
 block_size = 30
- 
+
 top_left_x = (s_width - play_width) // 2
 top_left_y = s_height - play_height
- 
- 
+
+
 # SHAPE FORMATS
- 
-S = [[\'.....\',
-      \'......\',
-      \'..00..\',
-      \'.00...\',
-      \'.....\'],
-     [\'.....\',
-      \'..0..\',
-      \'..00.\',
-      \'...0.\',
-      \'.....\']]
- 
-Z = [[\'.....\',
-      \'.....\',
-      \'.00..\',
-      \'..00.\',
-      \'.....\'],
-     [\'.....\',
-      \'..0..\',
-      \'.00..\',
-      \'.0...\',
-      \'.....\']]
- 
-I = [[\'..0..\',
-      \'..0..\',
-      \'..0..\',
-      \'..0..\',
-      \'.....\'],
-     [\'.....\',
-      \'0000.\',
-      \'.....\',
-      \'.....\',
-      \'.....\']]
- 
-O = [[\'.....\',
-      \'.....\',
-      \'.00..\',
-      \'.00..\',
-      \'.....\']]
- 
-J = [[\'.....\',
-      \'.0...\',
-      \'.000.\',
-      \'.....\',
-      \'.....\'],
-     [\'.....\',
-      \'..00.\',
-      \'..0..\',
-      \'..0..\',
-      \'.....\'],
-     [\'.....\',
-      \'.....\',
-      \'.000.\',
-      \'...0.\',
-      \'.....\'],
-     [\'.....\',
-      \'..0..\',
-      \'..0..\',
-      \'.00..\',
-      \'.....\']]
- 
-L = [[\'.....\',
-      \'...0.\',
-      \'.000.\',
-      \'.....\',
-      \'.....\'],
-     [\'.....\',
-      \'..0..\',
-      \'..0..\',
-      \'..00.\',
-      \'.....\'],
-     [\'.....\',
-      \'.....\',
-      \'.000.\',
-      \'.0...\',
-      \'.....\'],
-     [\'.....\',
-      \'.00..\',
-      \'..0..\',
-      \'..0..\',
-      \'.....\']]
- 
-T = [[\'.....\',
-      \'..0..\',
-      \'.000.\',
-      \'.....\',
-      \'.....\'],
-     [\'.....\',
-      \'..0..\',
-      \'..00.\',
-      \'..0..\',
-      \'.....\'],
-     [\'.....\',
-      \'.....\',
-      \'.000.\',
-      \'..0..\',
-      \'.....\'],
-     [\'.....\',
-      \'..0..\',
-      \'.00..\',
-      \'..0..\',
-      \'.....\']]
- 
+# 0 represents shape
+S = [['.....',
+      '......',
+      '..00..',
+      '.00...',
+      '.....'],
+     ['.....',
+      '..0..',
+      '..00.',
+      '...0.',
+      '.....']]
+
+Z = [['.....',
+      '.....',
+      '.00..',
+      '..00.',
+      '.....'],
+     ['.....',
+      '..0..',
+      '.00..',
+      '.0...',
+      '.....']]
+
+I = [['..0..',
+      '..0..',
+      '..0..',
+      '..0..',
+      '.....'],
+     ['.....',
+      '0000.',
+      '.....',
+      '.....',
+      '.....']]
+
+O = [['.....',
+      '.....',
+      '.00..',
+      '.00..',
+      '.....']]
+
+J = [['.....',
+      '.0...',
+      '.000.',
+      '.....',
+      '.....'],
+     ['.....',
+      '..00.',
+      '..0..',
+      '..0..',
+      '.....'],
+     ['.....',
+      '.....',
+      '.000.',
+      '...0.',
+      '.....'],
+     ['.....',
+      '..0..',
+      '..0..',
+      '.00..',
+      '.....']]
+
+L = [['.....',
+      '...0.',
+      '.000.',
+      '.....',
+      '.....'],
+     ['.....',
+      '..0..',
+      '..0..',
+      '..00.',
+      '.....'],
+     ['.....',
+      '.....',
+      '.000.',
+      '.0...',
+      '.....'],
+     ['.....',
+      '.00..',
+      '..0..',
+      '..0..',
+      '.....']]
+
+T = [['.....',
+      '..0..',
+      '.000.',
+      '.....',
+      '.....'],
+     ['.....',
+      '..0..',
+      '..00.',
+      '..0..',
+      '.....'],
+     ['.....',
+      '.....',
+      '.000.',
+      '..0..',
+      '.....'],
+     ['.....',
+      '..0..',
+      '.00..',
+      '..0..',
+      '.....']]
+
 shapes = [S, Z, I, O, J, L, T]
-shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
+shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255),
+                (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
 # index 0 - 6 represent shape
- 
- 
+
+
+# Main data structure. Represents different pieces.
 class Piece(object):
-    pass
- 
+    def __init__(self, x, y, shape):
+        self.x = x
+        self.y = y
+        self.shape = shape
+        self.color = shape_colors[shapes.index(shape)]
+        self.rotation = 0
+
+
 def create_grid(locked_positions={}):
-    pass
- 
+    # represent with list full of colors
+    # list comprehension. Creates on list for every row in the grid (20 sublist in each list)
+    # Ten colors in each grid
+    grid = [[(0, 0, 0)for x in range(10)] for x in range(20)]
+
+    # check for positions for locked position and change value
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            # lock pos is a dictionary
+            if (j, i) in locked_positions:
+                c = locked_positions[(j, i)]
+                grid[i][j] = c
+    return grid
+
+
 def convert_shape_format(shape):
-    pass
- 
+    positions = []
+    # this gives us the list of usable positions
+    # modulus gives remainder which then selects it from the list above
+    format = shape.shape[shape.rotation % len(shape.shape)]
+
+    # loops through the list and looks for either period or 0 to make shapes
+    for i, line in enumerate(format):
+        row = list(line)
+        for j, column in enumerate(row):
+            if column == '0':
+                positions.append((shape.x + j, shape.y + i))
+
+    for i, pos in enumerate(positions):
+        positions[i] = (pos[0] - 2, pos[1] - 4)
+
+    return positions
+
+
 def valid_space(shape, grid):
-    pass
- 
+    # checks grid for valid spaces
+    # dont allow us to move into fullfilled positions
+    accepted_pos = [[(j, i) for j in range(10) if grid[i][j] == (0, 0, 0)] for i in range(20)]
+    # turns list into 1D from 2D
+    accepted_pos = [j for sub in accepted_pos for j in sub]
+
+    formatted = convert_shape_format(shape)
+
+    for pos in formatted:
+        if pos not in accepted_pos:
+            # if x is less than one, its okay because its above screen
+            if pos[1] > -1:
+                return False
+    return True
+
+
 def check_lost(positions):
-    pass
- 
+    # checks for positions, if build up to higher than 1 youve lost
+    for pos in positions:
+        x, y = pos
+        if y < 1:
+            return True
+    return False
+
+
 def get_shape():
-    pass
- 
- 
+    # gives new shapes to fall down the screen
+    return Piece(5, 0, random.choice(shapes))
+
+
 def draw_text_middle(text, size, color, surface):
     pass
-   
-def draw_grid(surface, row, col):
-    pass
- 
+
+
+def draw_grid(surface, grid):
+    sx = top_left_x
+    sy = top_left_y
+
+    for i in range(len(grid)):
+        # draw a line on what, color, start postions
+        pygame.draw.line(surface, (128, 128, 128), (sx, sy + i * block_size), (sx + play_width, sy + i * block_size))
+        for j in range(len(grid[i])):
+            pygame.draw.line(surface, (128, 128, 128), (sx + j *block_size, sy), (sx +j *block_size, sy + play_height))
+
+
 def clear_rows(grid, locked):
- 
- 
+    inc = 0
+    ##loop through the grid backwards, if it does not have any black, delete the row
+    
+    for i in range(len(grid) -1, -1, -1):
+        row = grid[i]
+        if(0,0,0) not in row:
+            inc += 1
+            ind = i
+            for j in range(len(row)):
+                try:
+                    del locked[(j,i)]
+                except:
+                    continue
+    ##shift down the row
+    if inc > 0:
+        ##given a list, sort it based on the y value
+        ##inverse it
+        for key in sorted(list(locked), key = lambda x: x[1])[::-1]:
+            ##get the key
+            x, y = key
+            ##shift everything down
+            if y < ind:
+                ##shift the key down
+                new_key = (x, y + inc)
+                ##same color value as before
+                locked[new_key] = locked.pop(key) 
+
+
 def draw_next_shape(shape, surface):
- 
- 
-def draw_window(surface):
-    pass
- 
-def main():
-    pass
- 
+    font = pygame.font.SysFont('comicsans', 30)
+    label = font.render('Next Shape', 1, (255, 255, 255))
+
+    sx = top_left_x + play_width
+    sy = top_left_y + play_height / 2 - 100
+    format = shape.shape[shape.rotation % len(shape.shape)]
+
+    for i, line in enumerate(format):
+        row = list(line)
+        for j, column in enumerate(row):
+            if column == '0':
+                pygame.draw.rect(surface, shape.color, (sx + j*block_size, sy + i*block_size, block_size, block_size), 0)
+   
+    surface.blit(label, (sx + 10, sy - 30))
+
+
+def draw_window(surface, grid):
+    # background is going to be black
+    surface.fill((0, 0, 0))
+    # tell it that your about to write to screen
+    pygame.font.init()
+    # comicsans size 60. More fonts available look at documentation
+    font = pygame.font.SysFont('comicsans', 60)
+    label = font.render('Tetris', 1, (255, 255, 255))
+    # put middle of sceen (obj, x, y)
+    surface.blit(label, (top_left_x + play_width /
+                         2 - (label.get_width() / 2), 30))
+    # begin drawing obj
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            # loops through every color and draw it to the positions
+            pygame.draw.rect(surface, grid[i][j], (top_left_x + j* block_size, top_left_y + i * block_size, block_size, block_size), 0)
+    # draw the red grid border. On what, color, dimensions x, y, and border
+    # size.
+    pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 4)
+
+    draw_grid(surface, grid)
+
+
+def main(win):
+    locked_positions = {}
+    grid = create_grid(locked_positions)
+
+    change_piece = False
+    run = True
+    current_piece = get_shape()
+    next_piece = get_shape()
+    clock = pygame.time.Clock()
+    fall_time = 0
+    fall_speed = 0.27
+
+    # While the game is running...
+    while run:
+        # every time we move, we create a locked positions. Update every turn.
+        grid = create_grid(locked_positions)
+        # gets the raw time since the clock.tick
+        # should run at the same time for all computers.
+        fall_time += clock.get_rawtime()
+        clock.tick()
+
+        if fall_time / 1000 > fall_speed:
+            fall_time = 0
+            current_piece.y += 1
+            if not(valid_space(current_piece, grid)) and current_piece.y > 0:
+                # checks position
+                current_piece.y -= 1
+                # if it hits bottom or other piece, generate next piece and
+                # lock it
+                change_piece = True
+        for event in pygame.event.get():
+            # if they hit the quit button, stop the game.
+            if event.type == pygame.QUIT:
+                run = False
+            # check for any other button
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    current_piece.x -= 1
+                    # if you try to move to invalid space, move back
+                    if not(valid_space(current_piece, grid)):
+                        current_piece.x += 1
+                if event.key == pygame.K_RIGHT:
+                    current_piece.x += 1
+                    # if you try to move to invalid space, move back
+                    if not(valid_space(current_piece, grid)):
+                        current_piece.x -= 1
+                if event.key == pygame.K_DOWN:
+                    current_piece.y += 1
+                    # if you try to move to invalid space, move back
+                    if not(valid_space(current_piece, grid)):
+                        current_piece.y -= 1
+                if event.key == pygame.K_UP:
+                    current_piece.rotation += 1
+                    # if you try to move to invalid space, move back
+                    if not(valid_space(current_piece, grid)):
+                        current_piece.rotation -= 1
+
+            shape_pos = convert_shape_format(current_piece)
+
+            for i in range(len(shape_pos)):
+                x, y = shape_pos[i]
+                if y > -1:
+                    grid[y][x] = current_piece.color
+
+            # works with dictionary, need positions, colors
+            if change_piece:
+                for pos in shape_pos:
+                    p = (pos[0], pos[1])
+                    locked_positions[p] = current_piece.color
+                current_piece = next_piece
+                next_piece = get_shape()
+                change_piece = False
+                clear_rows(grid, locked_positions)
+
+            draw_window(win, grid)
+            draw_next_shape(next_piece, win)
+            pygame.display.update()
+
+            if check_lost(locked_positions):
+                run = False
+
+    pygame.display.quit()
+
+
 def main_menu():
-    pass
- 
+    main(win)
+
+
+win = pygame.display.set_mode((s_width, s_height))
+pygame.display.set_caption('Tetris')
 main_menu()  # start game
