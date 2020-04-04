@@ -32,7 +32,7 @@ facebook_password[0].send_keys(facebook_password_input)
 
 facebook_login_facebook = driver.find_elements_by_xpath(
     '//*[@id="loginbutton"]')[0].click()
-time.sleep(15)
+time.sleep(10)
 turn_off_notifications = driver.find_elements_by_xpath(
     '/html/body/div[4]/div/div/div[3]/button[2]')[0].click()
 
