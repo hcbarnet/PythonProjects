@@ -39,7 +39,7 @@ img = pygame.image.load('flyingpigsmall.png')
 
 def playDing():
 	pygame.mixer.init()
-	ding = pygame.mixer.Sound('ding.mp3')
+	ding = pygame.mixer.Sound('ding.wav')
 	ding.play()
 	
 
