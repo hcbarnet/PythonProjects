@@ -218,7 +218,7 @@ def get_shape():
 
 
 def draw_text_middle(surface, text, size, color):
-    font = pygame.font.SysFont('comicsans', size, bold=True)
+    font = pygame.font.SysFont('arial', size, bold=True)
     label = font.render(text, 1, color)
 
     surface.blit(label, (top_left_x + play_width/2 - (label.get_width() / 2), top_left_y + play_height/2 - label.get_height()/2))
@@ -265,7 +265,7 @@ def clear_rows(grid, locked):
     return inc
 
 def draw_next_shape(shape, surface):
-    font = pygame.font.SysFont('comicsans', 30)
+    font = pygame.font.SysFont('arial', 25)
     label = font.render('Next Shape', 1, (255, 255, 255))
 
     sx = top_left_x + play_width
@@ -304,14 +304,14 @@ def draw_window(surface, grid, score=0, last_score= 0):
     surface.fill((0, 0, 0))
     # tell it that your about to write to screen
     pygame.font.init()
-    # comicsans size 60. More fonts available look at documentation
-    font = pygame.font.SysFont('comicsans', 60)
+    # arial size 60. More fonts available look at documentation
+    font = pygame.font.SysFont('arial', 50)
     label = font.render('Tetris', 1, (255, 255, 255))
     # put middle of sceen (obj, x, y)
     surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
     
     
-    font = pygame.font.SysFont('comicsans', 30)
+    font = pygame.font.SysFont('arial', 20)
     label = font.render('Score: ' + str(score), 1, (255, 255, 255))
 
     sx = top_left_x + play_width
@@ -415,7 +415,7 @@ def main(win):
         
         ##check if the position too high, if it is display you lose and update
         if check_lost(locked_positions):
-            draw_text_middle(win, "YOU LOST!", 80, (255,255,255))
+            draw_text_middle(win, "YOU LOST!", 70, (255,255,255))
             pygame.display.update()
             pygame.time.delay(1500)
             run = False
@@ -426,7 +426,7 @@ def main_menu(win):
     run = True
     while run:
         win.fill((0,0,0))
-        draw_text_middle(win,'PRESS ANY KEY TO PLAY.', 60, (255, 255, 255))
+        draw_text_middle(win,'Press any key to play. Game created by Hunter Barnett.', 20, (255, 255, 255))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
