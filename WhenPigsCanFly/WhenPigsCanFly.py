@@ -8,6 +8,10 @@ Created on Sat Apr  4 20:31:21 2020
 import pygame
 from random import randint
 
+pygame.mixer.init()
+pygame.mixer.music.load('background.mp3')
+pygame.mixer.music.play(-1)
+
 all_fonts = pygame.font.get_fonts()
 s_width = 600
 s_height = 600
@@ -33,11 +37,17 @@ clock = pygame.time.Clock()
 img = pygame.image.load('flyingpigsmall.png')
 #variables for start point
 
+def playDing():
+	pygame.mixer.init()
+	ding = pygame.mixer.Sound('ding.mp3')
+	ding.play()
+	
+
 def score(count):
     font = pygame.font.SysFont(all_fonts[0], 20)
     text = font.render("Score: " + str(count), True, (0,0,0))
     surface.blit(text, [0,0])
-    
+
     
 
 def blocks(x_block, y_block, block_width, block_height, gap):
@@ -170,6 +180,9 @@ def main():
             block_height = randint(0, (s_height/2))
             current_score = current_score + 1
             pygame.display.update()
+
+        if x_block <= ((-1*block_width)+(image_width*2)):
+        	playDing()
             
             
             
