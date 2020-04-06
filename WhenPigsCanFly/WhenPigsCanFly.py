@@ -37,6 +37,8 @@ clock = pygame.time.Clock()
 img = pygame.image.load('flyingpigsmall.png')
 #variables for start point
 
+
+
 def playDing():
 	pygame.mixer.init()
 	ding = pygame.mixer.Sound('ding.wav')
@@ -91,14 +93,15 @@ def msg_surface(text, count=0):
     surface.blit(score_text_surface, score_text_rect)
     
     pygame.display.update()
-    pygame.time.wait(1000)
+    pygame.time.wait(3000)
     
     ##if user does nothing
     while replay_or_quit() == None:
         clock.tick()
 
+ 
     main()
-        
+ 
 def update_score(nscore):
     score = max_score()
     with open('scores.txt', 'w') as f:
@@ -118,7 +121,16 @@ def max_score():
 
     
 def game_over(count):
+    pygame.mixer.init()
+    game_over = pygame.mixer.Sound('game-over.ogg')
+    game_over.play()
     msg_surface('GAME OVER', count)
+
+    
+	
+    
+    
+	
     
 
 def flying_pig(x,y,image):
@@ -193,12 +205,15 @@ def main():
                     if x- image_width < block_width + x_block:
                         game_over(current_score)
                         
+			
+                        
                         
         
         if x + image_width > x_block:
             if y + 35 > block_height+gap:
                 if x < block_width + x_block:
                     game_over(current_score)
+                    
                     
                
                     
