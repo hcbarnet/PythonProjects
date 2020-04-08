@@ -93,7 +93,7 @@ def msg_surface(text, count=0):
     surface.blit(score_text_surface, score_text_rect)
     
     pygame.display.update()
-    pygame.time.wait(3000)
+    pygame.time.wait(2000)
     
     ##if user does nothing
     while replay_or_quit() == None:
